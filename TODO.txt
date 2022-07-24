@@ -1,0 +1,6 @@
+TODO:
+- Add constant variables to handle the properties of the game. (Somewhat done.. For now..)
+- Resize the sprites to exactly fit the coloured pixels. (I believe it's only the projectile)
+- Add some enemies and their projectiles
+- Add collision
+- Add stages
