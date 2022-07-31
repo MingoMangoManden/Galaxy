@@ -1,4 +1,4 @@
-package Galaxy;
+package Galaxy.engine;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 

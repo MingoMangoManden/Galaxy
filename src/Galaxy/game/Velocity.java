@@ -1,4 +1,4 @@
-package Galaxy.entities;
+package Galaxy.game;
 
 public class Velocity {
 	

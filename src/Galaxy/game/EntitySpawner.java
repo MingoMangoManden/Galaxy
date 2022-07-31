@@ -1,11 +1,11 @@
-package Galaxy;
+package Galaxy.game;
 
 import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import Galaxy.entities.Entity;
-import Galaxy.entities.EntityType;
+import Galaxy.engine.Game;
+import Galaxy.game.entities.Entity;
 
 public class EntitySpawner {
 	

@@ -1,4 +1,7 @@
-package Galaxy.entities;
+package Galaxy.game;
+
+import Galaxy.game.entities.Entity;
+import Galaxy.game.entities.PurpleSpaceShip;
 
 public enum EntityType {
 	

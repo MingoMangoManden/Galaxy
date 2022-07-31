@@ -1,7 +1,9 @@
-package Galaxy;
+package Galaxy.engine;
 import java.awt.Dimension;
 
 import javax.swing.JFrame;
+
+import Galaxy.game.GamePanel;
 
 public class Window extends JFrame {
 	

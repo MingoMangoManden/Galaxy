@@ -1,10 +1,11 @@
-package Galaxy;
+package Galaxy.engine;
+
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
-import Galaxy.entities.Player;
+import Galaxy.game.entities.Player;
 
 public class Game {
 	
@@ -16,7 +17,7 @@ public class Game {
 	
 	public static final double BASE_PLAYER_SPEED = 5;
 	
-	public static final int BASE_PLAYER_LASER_COOLDOWN = 15;
+	public static final int BASE_PLAYER_LASER_COOLDOWN = 35;
 	public static final int BASE_LASER_SPEED = 10; // when changing this from stage to stage, remember to also change the live time
 	public static final int LASER_WIDTH = 50;
 	public static final int LASER_HEIGHT = 50;
@@ -42,7 +43,7 @@ public class Game {
 	public void loadAssets() {
 		try {
 			Game.SPACESHIP_LASER = ImageIO.read(getClass().getResource("/res/player_projectile.png"));
-			Game.PURPLE_SPACESHIP = Utils.getScaledImage(ImageIO.read(getClass().getResource("/res/purple_spaceship.png")), 35, 35);
+			Game.PURPLE_SPACESHIP = ImageIO.read(getClass().getResource("/res/purple_spaceship.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

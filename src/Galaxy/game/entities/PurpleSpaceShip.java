@@ -1,14 +1,20 @@
-package Galaxy.entities;
+package Galaxy.game.entities;
 
+import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 
-import Galaxy.Game;
+import Galaxy.engine.Game;
 
 public class PurpleSpaceShip extends Entity {
 	
 	int x, y;
 	int width, height;
+	
+	boolean isDead = false;
+	Rectangle hitbox;
 	
 	double speed = 2;
 	int direction; // -1 or 1
@@ -20,6 +26,7 @@ public class PurpleSpaceShip extends Entity {
 		this.y = y;
 		this.width = width;
 		this.height = height;
+		this.hitbox = new Rectangle(x, y, width, height);
 		
 		int num = (Math.random() >= 0.5) ? 1 : -1;
 		this.direction = num;
@@ -29,6 +36,9 @@ public class PurpleSpaceShip extends Entity {
 
 	@Override
 	public void update() {
+		// updating the hitbox
+		hitbox = new Rectangle(x, y, width, height);
+		
 		double gravity = 1;
 		y += gravity;
 		
@@ -46,6 +56,8 @@ public class PurpleSpaceShip extends Entity {
 	@Override
 	public void draw(Graphics2D g2) {
 		g2.drawImage(purpleSpaceship, x, y, width, height, null);
+		g2.setColor(Color.red);
+		g2.draw(hitbox);
 	}
 
 	@Override
@@ -86,6 +98,26 @@ public class PurpleSpaceShip extends Entity {
 	@Override
 	public void setHeight(int height) {
 		this.height = height;
+	}
+	
+	@Override
+	public Rectangle getBounds() {
+		return hitbox;
+	}
+
+	@Override
+	public boolean isDead() {
+		return isDead;
+	}
+
+	@Override
+	public void setDead(boolean isDead) {
+		this.isDead = isDead;
+	}
+
+	@Override
+	public ArrayList<Projectile> getSubEntities() {
+		return null;
 	}
 
 }
