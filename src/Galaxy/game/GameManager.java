@@ -46,7 +46,7 @@ public class GameManager {
 	int pauseCooldown = 30; // you can pause/unpause every second.
 	int pauseCooldownCounter = pauseCooldown;
 	
-	Font standardFont = new Font("Times New Roman", Font.PLAIN, 12);
+	Font standardFont = Game.FONT;//new Font("Times New Roman", Font.PLAIN, 12);
 	
 	public GameManager() {
 		//entities.add(PLAYER1);
@@ -178,13 +178,13 @@ public class GameManager {
 				// HI DUMMY PLEASE FIX THANKSSF
 				boolean shouldDisplayStageInfo = false;//(nextStageCounter != 0);
 				if (shouldDisplayStageInfo) {
-					g2.setFont(new Font("Times New Roman", Font.PLAIN, 200));
+					g2.setFont(standardFont.deriveFont(200f));
 					g2.drawString("Stage " + currentStage, 150, 300); // center
-					g2.setFont(new Font("Times New Roman", Font.PLAIN, 50));
+					g2.setFont(standardFont.deriveFont(50f));
 					g2.drawString("Wave " + wave, 150, 350); // center
 				}
 				
-				g2.setFont(new Font("Times New Roman", Font.PLAIN, 25));
+				g2.setFont(standardFont.deriveFont(25f));
 				g2.drawString("STAGE: " + currentStage, 5, 25);
 				g2.drawString("SCORE: " + score, 5, 50);
 			}
@@ -200,20 +200,6 @@ public class GameManager {
 				
 				// drawing gui
 				g2.setColor(Color.white);
-				
-				
-				// HI DUMMY PLEASE FIX THANKSSF
-				boolean shouldDisplayStageInfo = false;//(nextStageCounter != 0);
-				if (shouldDisplayStageInfo) {
-					g2.setFont(new Font("Times New Roman", Font.PLAIN, 200));
-					g2.drawString("Stage " + currentStage, 150, 300); // center
-					g2.setFont(new Font("Times New Roman", Font.PLAIN, 50));
-					g2.drawString("Wave " + wave, 150, 350); // center
-				}
-				
-				g2.setFont(new Font("Times New Roman", Font.PLAIN, 25));
-				g2.drawString("STAGE: " + currentStage, 5, 25);
-				g2.drawString("SCORE: " + score, 5, 50);
 				
 				String text = "PAUSED";
 				Font font = standardFont.deriveFont(50f);

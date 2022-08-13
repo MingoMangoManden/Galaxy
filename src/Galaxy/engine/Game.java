@@ -1,11 +1,12 @@
 package Galaxy.engine;
 
+import java.awt.Font;
+import java.awt.FontFormatException;
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
-
-import Galaxy.game.entities.Player;
 
 public class Game {
 	
@@ -14,6 +15,7 @@ public class Game {
 	public static final int height = 800;
 	
 	public static final String RESOURCE_PATH = "/res/";
+	public static Font FONT;
 	
 	public static final boolean DEBUG_MODE = false;
 	
@@ -34,8 +36,8 @@ public class Game {
 	Window window;
 	
 	public Game() {
-		window = new Window(title, width, height);
 		loadAssets();
+		window = new Window(title, width, height);
 	}
 	
 	public void start() {
@@ -46,6 +48,22 @@ public class Game {
 		try {
 			Game.SPACESHIP_LASER = ImageIO.read(getClass().getResource("/res/player_projectile.png"));
 			Game.PURPLE_SPACESHIP = ImageIO.read(getClass().getResource("/res/purple_spaceship.png"));
+			loadFont();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void loadFont() {
+		String fontPath = "/res/VCR_OSD_Mono.ttf";
+	    File file = new File(getClass().getResource(fontPath).getFile());
+
+		try {
+			Font font = Font.createFont(Font.TRUETYPE_FONT, file);
+			font = font.deriveFont(25f);
+			Game.FONT = font;
+		} catch (FontFormatException e) {
+			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
