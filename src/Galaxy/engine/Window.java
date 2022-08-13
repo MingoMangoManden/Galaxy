@@ -1,6 +1,8 @@
 package Galaxy.engine;
 import java.awt.Dimension;
+import java.io.IOException;
 
+import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 
 import Galaxy.game.GameManager;
@@ -18,11 +20,23 @@ public class Window extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setLocationRelativeTo(null);
 		addKeyListener(new Keyboard());
+		//setUndecorated(true);
+		loadIconImage();
 		
 		gm = new GameManager();
 		gp = new GamePanel(gm);
 		add(gp);
 		gp.startGameLoop();
+	}
+	
+	private void loadIconImage() {
+		String path = "/res/splash.jpg";
+		
+		try {
+			setIconImage(ImageIO.read(getClass().getResource(path)));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 }
