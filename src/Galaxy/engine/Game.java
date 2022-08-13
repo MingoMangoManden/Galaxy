@@ -15,6 +15,8 @@ public class Game {
 	
 	public static final String RESOURCE_PATH = "/res/";
 	
+	public static final boolean DEBUG_MODE = false;
+	
 	public static final double BASE_PLAYER_SPEED = 5;
 	
 	public static final int BASE_PLAYER_LASER_COOLDOWN = 35;

@@ -3,11 +3,13 @@ import java.awt.Dimension;
 
 import javax.swing.JFrame;
 
+import Galaxy.game.GameManager;
 import Galaxy.game.GamePanel;
 
 public class Window extends JFrame {
 	
 	GamePanel gp;
+	GameManager gm;
 	
 	public Window(String title, int width, int height) {
 		setTitle(title);
@@ -17,7 +19,8 @@ public class Window extends JFrame {
 		setLocationRelativeTo(null);
 		addKeyListener(new Keyboard());
 		
-		gp = new GamePanel();
+		gm = new GameManager();
+		gp = new GamePanel(gm);
 		add(gp);
 		gp.startGameLoop();
 	}
