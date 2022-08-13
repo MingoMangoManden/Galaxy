@@ -1,21 +1,21 @@
 package Galaxy.game;
 
-public class Velocity {
+public class Vector {
 	
 	double x, y;
 	
-	public Velocity(double x, double y) {
+	public Vector(double x, double y) {
 		this.x = x;
 		this.y = y;
 	}
 	
-	public Velocity() {
+	public Vector() {
 		this.x = 0;
 		this.y = 0;
 	}
 	
 	public void normalize(double deltaTime) {
-		Velocity velocity = this;
+		Vector velocity = this;
 		
 		// positive
 		if (velocity.x > 0 && velocity.x < 0.75) { // if between 0.0 and 0.75

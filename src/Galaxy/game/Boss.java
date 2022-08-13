@@ -1,4 +1,4 @@
-package Galaxy.game.entities;
+package Galaxy.game;
 
 public abstract class Boss extends Entity {
 	
