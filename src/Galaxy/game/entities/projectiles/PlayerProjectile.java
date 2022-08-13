@@ -1,25 +1,28 @@
-package Galaxy.game.entities;
+package Galaxy.game.entities.projectiles;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
+import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 import Galaxy.engine.Game;
-import Galaxy.game.Velocity;
+import Galaxy.game.Projectile;
+import Galaxy.game.Vector;
 
 public class PlayerProjectile extends Projectile {
 	
 	int x, y;
 	int width, height;
+	double rotation = 0.0;
 	
 	boolean isDead = false;
 	Rectangle hitbox;
 	
 	double speed = Game.BASE_LASER_SPEED;
-	int liveTime = (int) (speed*6.9); // this is in updates ofc.
-	Velocity velocity;
+	int liveTime = (int) (speed*6.9); // haha funny number
+	Vector velocity;
 	
 	BufferedImage projectile;
 	
@@ -35,19 +38,24 @@ public class PlayerProjectile extends Projectile {
 
 	@Override
 	public void update() {
-		// updating the hitbox
-		if (!isDead)
-			hitbox = new Rectangle(x, y, width, height);
-			y -= speed;
+		y -= speed;
+		
+		// updating the hitbox after position has been updated.
+		hitbox = new Rectangle(x, y, width, height);
+		liveTime--;
 	}
 
 	@Override
 	public void draw(Graphics2D g2) {
+		g2.rotate(Math.toRadians(rotation));
 		g2.drawImage(projectile, x, y, width, height, null);
-		liveTime--;
+		
 		// hitbox
-		g2.setColor(Color.green);
-		g2.drawRect(hitbox.x, hitbox.y, hitbox.width, hitbox.height);
+		if (Game.DEBUG_MODE) {
+			g2.setColor(Color.green);
+			g2.draw(hitbox);
+		}
+		g2.rotate(Math.toRadians(rotation*-1)); // resetting the g2's rotation for drawing other things
 	}
 	
 	@Override
@@ -74,6 +82,16 @@ public class PlayerProjectile extends Projectile {
 	public void setY(int y) {
 		this.y = y;
 	}
+	
+	@Override
+	public double getRotation() {
+		return rotation;
+	}
+	
+	@Override
+	public void setRotation(double rotation) {
+		this.rotation = rotation;
+	}
 
 	@Override
 	public int getWidth() {
@@ -93,6 +111,16 @@ public class PlayerProjectile extends Projectile {
 	@Override
 	public void setHeight(int height) {
 		this.height = height;
+	}
+	
+	@Override
+	public double getSpeed() {
+		return speed;
+	}
+	
+	@Override
+	public void setSpeed(double speed) {
+		this.speed = speed;
 	}
 	
 	@Override

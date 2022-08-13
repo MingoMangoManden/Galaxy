@@ -5,11 +5,9 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import Galaxy.engine.Game;
-import Galaxy.game.entities.Entity;
 
 public class EntitySpawner {
 	
-	GamePanel gp;
 	EntityType[] types;
 	long interval;
 	
@@ -17,8 +15,7 @@ public class EntitySpawner {
 	
 	ArrayList<Entity> entities = new ArrayList<>();
 	
-	public EntitySpawner(GamePanel gp, EntityType[] types, long interval) {
-		this.gp = gp;
+	public EntitySpawner(EntityType[] types, long interval) {
 		this.types = types;
 		this.interval = interval;
 	}
@@ -30,23 +27,44 @@ public class EntitySpawner {
 			@Override
 			public void run() {
 				spawnRandomEntity();
+				GameManager.wave++;
 			}
 			
-		}, 3000, interval);
+		}, 5000, 5000);
 	}
 	
 	private void spawnRandomEntity() {
 		int width = 50;
 		int height = 50;
 		int x = (int) (Math.random()*Game.width) - width;
-		int y = height;
+		int y = 0-height;
 		
-		Entity entity = types[(int) (Math.random()*types.length)].getEntity();
-		entity.setX(x);
-		entity.setY(y);
-		entity.setWidth(width);
-		entity.setHeight(height);
-		entities.add(entity);
+		int direction = 1; // direction of all the spawning entities
+		for (int i = 0; i < GameManager.wave*GameManager.currentStage; i++) {
+			Enemy entity = types[(int) (Math.random()*types.length)].getEntity();
+			entity.setX(x-i*50);
+			entity.setY(y-i*50);
+			entity.setWidth(width);
+			entity.setHeight(height);
+			entity.setDirection(direction);
+			//entity.setSpeed(entity.getSpeed()*GamePanel.difficulty);
+			entities.add(entity);
+		}
+		
+		// reverse
+		direction = -1;
+		for (int i = 0; i < GameManager.wave*GameManager.currentStage; i++) {
+			Enemy entity = types[(int) (Math.random()*types.length)].getEntity();
+			entity.setX(x-i*50*direction);
+			entity.setY(y-i*50);
+			entity.setWidth(width);
+			entity.setHeight(height);
+			entity.setDirection(direction);
+			//entity.setSpeed(entity.getSpeed()*GamePanel.difficulty);
+			System.out.println("new enemy spawned with speed " + entity.getSpeed());
+			entities.add(entity);
+		}
+		
 	}
 	
 	public void stopSpawning() {
