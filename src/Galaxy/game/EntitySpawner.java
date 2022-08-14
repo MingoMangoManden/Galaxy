@@ -12,6 +12,7 @@ public class EntitySpawner {
 	long interval;
 	
 	Timer timer;
+	boolean isPaused = false;
 	
 	ArrayList<Entity> entities = new ArrayList<>();
 	
@@ -26,8 +27,10 @@ public class EntitySpawner {
 
 			@Override
 			public void run() {
-				spawnRandomEntity();
-				GameManager.wave++;
+				if (!isPaused) {
+					spawnRandomEntity();
+					GameManager.wave++;
+				}
 			}
 			
 		}, 5000, 5000);
@@ -65,6 +68,10 @@ public class EntitySpawner {
 			entities.add(entity);
 		}
 		
+	}
+	
+	public void setPaused(boolean value) {
+		this.isPaused = value;
 	}
 	
 	public void stopSpawning() {

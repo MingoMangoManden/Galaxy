@@ -28,7 +28,7 @@ public class GameManager {
 	HoveringText tutorialText = new HoveringText("Moving: A & D", tutorialTextCooldown);
 	HoveringText tutorialText2 = new HoveringText("Shooting: SPACE", tutorialTextCooldown);
 	
-	public static EntitySpawner spawner;
+	EntitySpawner spawner;
 	ArrayList<Entity> entities = new ArrayList<>();
 	
 	public static int currentStage = 1;
@@ -52,13 +52,13 @@ public class GameManager {
 		//entities.add(PLAYER1);
 		//if (multiplayer)
 			//entities.add(PLAYER2);
-		GameManager.spawner = new EntitySpawner(new EntityType[] {EntityType.PURPLE_SPACESHIP}, 1500);
+		spawner = new EntitySpawner(new EntityType[] {EntityType.PURPLE_SPACESHIP}, 1500);
 	}
 	
 	public void startGame() {
 		System.out.println("game started");
 		gameState = GameState.PLAYING;
-		GameManager.spawner.startSpawning();
+		spawner.startSpawning();
 	}
 	
 	public void update(double deltaTime) {
@@ -103,8 +103,9 @@ public class GameManager {
 			
 			if (Keyboard.isKeyPressed(KeyEvent.VK_ESCAPE)) {
 				if (pauseCooldownCounter <= 0) {
-					gameState = GameState.PAUSED;
 					System.out.println("game paused");
+					gameState = GameState.PAUSED;
+					spawner.setPaused(true);
 					pauseCooldownCounter = pauseCooldown;
 				}
 			}
@@ -114,8 +115,9 @@ public class GameManager {
 		if (gameState == GameState.PAUSED) {
 			if (Keyboard.isKeyPressed(KeyEvent.VK_ESCAPE) || Keyboard.isKeyPressed(KeyEvent.VK_A) || Keyboard.isKeyPressed(KeyEvent.VK_D) || Keyboard.isKeyPressed(KeyEvent.VK_SPACE)) {
 				if (pauseCooldownCounter <= 0) {
-					gameState = GameState.PLAYING;
 					System.out.println("game resumed");
+					gameState = GameState.PLAYING;
+					spawner.setPaused(false);
 					pauseCooldownCounter = pauseCooldown;
 				}
 			}
@@ -200,6 +202,10 @@ public class GameManager {
 				
 				// drawing gui
 				g2.setColor(Color.white);
+				
+				g2.setFont(standardFont.deriveFont(25f));
+				g2.drawString("STAGE: " + currentStage, 5, 25);
+				g2.drawString("SCORE: " + score, 5, 50);
 				
 				String text = "PAUSED";
 				Font font = standardFont.deriveFont(50f);
