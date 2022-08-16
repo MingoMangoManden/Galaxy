@@ -28,7 +28,7 @@ public class EntitySpawner {
 			@Override
 			public void run() {
 				if (!isPaused) {
-					spawnRandomEntity();
+					spawnEntities();
 					GameManager.wave++;
 				}
 			}
@@ -36,10 +36,11 @@ public class EntitySpawner {
 		}, 5000, 5000);
 	}
 	
-	private void spawnRandomEntity() {
+	private void spawnEntities() {
 		int width = 50;
 		int height = 50;
 		int x = (int) (Math.random()*Game.width) - width;
+		x += (x > Game.width/2) ? width : Math.abs(width);
 		int y = 0-height;
 		
 		int direction = 1; // direction of all the spawning entities
